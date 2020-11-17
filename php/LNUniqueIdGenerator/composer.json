@@ -1,0 +1,6 @@
+{
+	"require" : {
+		"php" : ">=5.5",
+		"stephenhill/base58": "~1.0"
+	}
+}
