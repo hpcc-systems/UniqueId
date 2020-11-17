@@ -1,8 +1,0 @@
-C:\Users\singhr5\AppData\Local\Temporary Projects\com.lexisnexis.risk.lnuidnet\bin\Debug\com.lexisnexis.risk.lnuidnet.dll
-C:\Users\singhr5\AppData\Local\Temporary Projects\com.lexisnexis.risk.lnuidnet\bin\Debug\com.lexisnexis.risk.lnuidnet.pdb
-C:\Users\singhr5\AppData\Local\Temporary Projects\com.lexisnexis.risk.lnuidnet\obj\Debug\com.lexisnexis.risk.lnuidnet.dll
-C:\Users\singhr5\AppData\Local\Temporary Projects\com.lexisnexis.risk.lnuidnet\obj\Debug\com.lexisnexis.risk.lnuidnet.pdb
-C:\Alirts\DevGitBranch\NETProjects\ComLexisNexisRisklnuidnet\bin\Debug\com.lexisnexis.risk.lnuidnet.dll
-C:\Alirts\DevGitBranch\NETProjects\ComLexisNexisRisklnuidnet\bin\Debug\com.lexisnexis.risk.lnuidnet.pdb
-C:\Alirts\DevGitBranch\NETProjects\ComLexisNexisRisklnuidnet\obj\Debug\com.lexisnexis.risk.lnuidnet.dll
-C:\Alirts\DevGitBranch\NETProjects\ComLexisNexisRisklnuidnet\obj\Debug\com.lexisnexis.risk.lnuidnet.pdb
