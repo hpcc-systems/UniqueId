@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.lexisnexis.uniqueid</groupId>
+    <artifactId>unique-id</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>Lexis Nexis unique ID</name>
+    <url>https://www.github.com/hpcc-systems/UniqueId</url>
+    <description>Lexis nexis unique ID generator</description>
+    
+    <properties>
+        <java.version>1.8</java.version>
+        <resource.delimiter>@</resource.delimiter>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:hpcc-systems/UniqueId.git</connection>
+        <developerConnection>scm:git:git@github.com:hpcc-systems/UniqueId.git</developerConnection>
+        <url>scm:git@github.com:hpcc-systems/UniqueId.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- This is for deployment of snapshots -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+           <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <!-- This is for fetching dependencies when doing SNAPSHOT builds -->
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <name>Ossrh Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>org.bitcoinj</groupId>
+            <artifactId>bitcoinj-core</artifactId>
+            <version>0.15.8</version>
+        </dependency>
+        <dependency>
+    <groupId>org.sonatype.plugins</groupId>
+    <artifactId>nexus-staging-maven-plugin</artifactId>
+    <version>1.6.8</version>
+</dependency>
+        
+<dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-gpg-plugin</artifactId>
+    <version>1.6</version>
+</dependency>
+
+
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <maxmem>512m</maxmem>
+                    <meminitial>128m</meminitial>
+                    <fork>true</fork>
+                </configuration>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <show>public</show>
+                    <source>8</source>
+                    <nohelp>true</nohelp>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.11.2</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8 -Xmx4096m</argLine>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <argLine>-Xmx4096m</argLine>
+                    <outputDirectory>target/surefire-reports</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report-only</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+              <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-gpg-plugin</artifactId>
+      <version>1.6</version>
+      <executions>
+        <execution>
+          <id>sign-artifacts</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>sign</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    <plugin>
+  <groupId>org.sonatype.plugins</groupId>
+  <artifactId>nexus-staging-maven-plugin</artifactId>
+  <version>1.6.8</version>
+  <extensions>true</extensions>
+  <configuration>
+     <serverId>ossrh</serverId>
+     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+     <autoReleaseAfterClose>false</autoReleaseAfterClose>
+  </configuration>
+</plugin>
+        </plugins>
+    </build>
+    
+    <developers>
+    <developer>
+      <id>drealeed</id>
+      <name>Drea Leed</name>
+      <email>drea.leed@reedelsevier.com</email>
+      <organization>LexisNexis Risk</organization>
+      <organizationUrl>https://hpccsystems.com</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>America/New_York</timezone>
+    </developer>
+  </developers>
+    
+</project>
